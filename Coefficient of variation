@@ -1,0 +1,20 @@
+#Function to find coefficient of variation for every year given a 3d xarray dataset and a threshold
+def coeff_var(ds,threshold):
+    df = pd.DataFrame(ds.to_dataframe())
+    df = df.reset_index(level=["x","y"], drop=True).dropna()
+    df_ehr = df[df["RAINFALL"]>threshold]
+    cv = []
+    empty_years = []
+    no_std = []
+    for i in df_ehr.index.year:
+        df_i = df_ehr[df_ehr.index.year == i]
+        if not df_i.empty:
+            yearly_mean = df_i["RAINFALL"].mean()
+            yearly_std = df_i["RAINFALL"].std()
+            cv.append(yearly_std / yearly_mean)
+        elif df_i["RAINFALL"].count() == 1:
+            no_std.append(i)
+        elif df_i.empty:
+            empty_years.append(i)
+            cv.append(np.nan)
+    return cv
