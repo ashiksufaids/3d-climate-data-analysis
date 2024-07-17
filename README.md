@@ -1,1 +1,1 @@
-# Rainfall-data-
+I worked with Rainfall data which is in NetCDF format. This repository contains some data analysis techniques I used. I used Python libraries Xarray, rioxarray, pandas, geopandas for data extraction, xarray, pandas, numpy, and scipy for data analysis, and pyplot module of matplotlib and seaborn for data visualization.
